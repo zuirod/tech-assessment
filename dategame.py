@@ -1,5 +1,5 @@
 from requests import post
-from dateutil.parser import parse
+from dateutil.parser import parse # super convenient
 from datetime import timedelta
 
 token = "068a1d291aee44a97349a49bf7bef655"
@@ -12,7 +12,8 @@ data = request.json()
 datestamp = data["datestamp"]
 interval = data["interval"]
 
-date = parse(datestamp) + timedelta(seconds = interval)
+date = parse(datestamp) + timedelta(seconds=interval)
 datestring = date.isoformat().replace("+00:00", "Z")
 
 answer = post(validation_endpoint, dict(token=token, datestamp=datestring))
+assert answer.status_code == 200
